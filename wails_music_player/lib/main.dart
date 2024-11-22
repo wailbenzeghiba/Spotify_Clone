@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wails_music_player/view/homePage.dart';
+import 'package:wails_music_player/core/theme/theme.dart';
+import 'package:wails_music_player/features/auth/view/pages/signin_page.dart';
+import 'package:wails_music_player/features/auth/view/pages/signup_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const myHomePage(),
+      theme: AppTheme.DarkThemeMode,
+      home: const Signin(),
     );
   }
 }
