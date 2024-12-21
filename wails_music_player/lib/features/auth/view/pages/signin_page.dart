@@ -63,18 +63,24 @@ class _SigninState extends State<Signin> {
               const SizedBox(
                 height: 20,
               ),
-              RichText(
-                  text: TextSpan(
-                      style: Theme.of(context).textTheme.titleMedium,
-                      text: "Don't have an account?",
-                      children: const [
-                    TextSpan(
-                        text: '  Sign Up',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Pallete.gradient2,
-                            fontWeight: FontWeight.w600))
-                  ]))
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => const Signin()));
+                },
+                child: RichText(
+                    text: TextSpan(
+                        style: Theme.of(context).textTheme.titleMedium,
+                        text: "Don't have an account?",
+                        children: const [
+                      TextSpan(
+                          text: '  Sign Up',
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Pallete.gradient2,
+                              fontWeight: FontWeight.w600))
+                    ])),
+              )
             ],
           ),
         ),
