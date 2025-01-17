@@ -22,7 +22,7 @@ class _SignUpState extends State<SignUp> {
     EmailController.dispose();
     PasswordController.dispose();
     super.dispose();
-    formkey.currentState!.validate();
+    formkey.currentState?.validate();
   }
 
   @override
