@@ -1,25 +1,22 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-from sqlalchemy import create_engine
+from fastapi import FastAPI, HTTPException  
 from sqlalchemy.orm import sessionmaker
-
+from sqlalchemy.ext.declarative import declarative_base
+from models.user import User 
+from models import base
+from routes import Auth
+from database import engine
+from routes import Auth
 
 app = FastAPI()
 
-DBURL = "postgresql://postgres:wail@localhost/5432/MusicAppDB"
-engine = create_engine(DBURL)
-sessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-db = sessionLocal()
+app.include_router(Auth.router , prefix="/auth")
+
+base.Base.metadata.create_all(engine)
 
 
-class UserCreate(BaseModel):
- name: str 
- email: str
- password: str
 
-@app.post('/signup')
-def signup_user(user: UserCreate):
-    print(user.name)
-    print(user.email)
-    print(user.password)
+    
+
+
+
 
