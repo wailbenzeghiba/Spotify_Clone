@@ -1,7 +1,4 @@
-from fastapi import FastAPI, HTTPException  
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-from models.user import User 
+from fastapi import FastAPI 
 from models import base
 from routes import Auth
 from database import engine

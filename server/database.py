@@ -10,5 +10,10 @@ from sqlalchemy.orm import sessionmaker
 DBURL = "postgresql://postgres:wail@localhost:5432/MusicAppDB"
 engine = create_engine(DBURL)
 sessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-db = sessionLocal()
 
+async def get_db():
+    db = sessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
