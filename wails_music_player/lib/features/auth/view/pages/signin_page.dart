@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wails_music_player/core/theme/app_pallette.dart';
 import 'package:wails_music_player/features/auth/view/widgets/auth_gradient_button.dart';
 import 'package:wails_music_player/features/auth/view/widgets/custom_field.dart';
+import 'package:wails_music_player/features/auth/view/pages/signup_page.dart';
 
 class Signin extends StatefulWidget {
   const Signin({super.key});
@@ -19,7 +20,7 @@ class _SigninState extends State<Signin> {
     EmailController.dispose();
     PasswordController.dispose();
     super.dispose();
-    formkey.currentState!.validate();
+    formkey.currentState?.validate();
   }
 
   @override
@@ -63,18 +64,24 @@ class _SigninState extends State<Signin> {
               const SizedBox(
                 height: 20,
               ),
-              RichText(
-                  text: TextSpan(
-                      style: Theme.of(context).textTheme.titleMedium,
-                      text: "Don't have an account?",
-                      children: const [
-                    TextSpan(
-                        text: '  Sign Up',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Pallete.gradient2,
-                            fontWeight: FontWeight.w600))
-                  ]))
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => const SignUp()));
+                },
+                child: RichText(
+                    text: TextSpan(
+                        style: Theme.of(context).textTheme.titleMedium,
+                        text: "Don't have an account?",
+                        children: const [
+                      TextSpan(
+                          text: '  Sign Up',
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Pallete.gradient2,
+                              fontWeight: FontWeight.w600))
+                    ])),
+              )
             ],
           ),
         ),

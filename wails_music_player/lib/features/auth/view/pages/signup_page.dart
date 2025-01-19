@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wails_music_player/core/theme/app_pallette.dart';
+import 'package:wails_music_player/features/auth/view/pages/signin_page.dart';
 import 'package:wails_music_player/features/auth/view/widgets/auth_gradient_button.dart';
 import 'package:wails_music_player/features/auth/view/widgets/custom_field.dart';
 
@@ -21,7 +22,7 @@ class _SignUpState extends State<SignUp> {
     EmailController.dispose();
     PasswordController.dispose();
     super.dispose();
-    formkey.currentState!.validate();
+    formkey.currentState?.validate();
   }
 
   @override
@@ -73,18 +74,24 @@ class _SignUpState extends State<SignUp> {
               const SizedBox(
                 height: 20,
               ),
-              RichText(
-                  text: TextSpan(
-                      style: Theme.of(context).textTheme.titleMedium,
-                      text: "Already have an account?",
-                      children: const [
-                    TextSpan(
-                        text: '  Sign in',
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Pallete.gradient2,
-                            fontWeight: FontWeight.w600))
-                  ]))
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => const Signin()));
+                },
+                child: RichText(
+                    text: TextSpan(
+                        style: Theme.of(context).textTheme.titleMedium,
+                        text: "Already have an account?",
+                        children: const [
+                      TextSpan(
+                          text: '  Sign in',
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Pallete.gradient2,
+                              fontWeight: FontWeight.w600))
+                    ])),
+              )
             ],
           ),
         ),
