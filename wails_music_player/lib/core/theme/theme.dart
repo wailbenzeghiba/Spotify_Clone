@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wails_music_player/core/theme/app_pallette.dart';
 
 class AppTheme {
-  static final DarkThemeMode = ThemeData.dark().copyWith(
+  static final darkThemeMode = ThemeData.dark().copyWith(
       scaffoldBackgroundColor: Pallete.backgroundColor,
       inputDecorationTheme: InputDecorationTheme(
           contentPadding: const EdgeInsets.all(27),
@@ -20,6 +20,6 @@ class AppTheme {
             borderRadius: BorderRadius.circular(15),
           )),
       textTheme: const TextTheme(
-        titleMedium: TextStyle(fontSize: 17),
+        titleMedium: TextStyle(fontSize: 17, color: Colors.white),
       ));
 }
