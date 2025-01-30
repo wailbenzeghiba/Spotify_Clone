@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.post('/signup', status_code= 201)
-def signup_user(user: UserCreate, db: Session = Depends(get_db)):
+async def signup_user(user: UserCreate, db: Session = Depends(get_db)):
     user_db = db.query(User).filter(User.email == user.email).first()
 
     if  user_db:
@@ -31,16 +31,16 @@ def signup_user(user: UserCreate, db: Session = Depends(get_db)):
 
 
 @router.post('/login')
-def login_user(user: UserLogin, db: Session = Depends(get_db)):
-    user_db = db.query(User).filter(User.email == User.email).first()
+async def login_user(user: UserLogin, db: Session = Depends(get_db)):
+    user_db = db.query(User).filter(User.email == user.email).first()
 
     if not user_db:
-        raise HTTPException(400, "Invalid Credentials")
+        raise HTTPException(400, "invalid email")
      
     ismatch = bcrypt.checkpw(user.password.encode('utf-8'), user_db.password)
      
     if not ismatch:
-        raise HTTPException(400, "Invalid Credentials")
+        raise HTTPException(400, "Invalid password")
     
     return user_db
         

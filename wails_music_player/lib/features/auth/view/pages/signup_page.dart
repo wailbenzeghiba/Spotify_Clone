@@ -75,7 +75,7 @@ class _SignUpState extends State<SignUp> {
                 AuthGradientButton(
                   buttonLabel: 'Sign Up',
                   ontap: () async {
-                    await AuthRemoteRepo().signup(name: NameController.text, email: EmailController.text, password: PasswordController.text);
+                   await AuthRemoteRepo().signup(name: NameController.text, email: EmailController.text, password: PasswordController.text); 
                   },
                 ),
                 const SizedBox(
