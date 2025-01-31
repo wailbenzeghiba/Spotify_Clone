@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart' hide State;
 import 'package:wails_music_player/core/theme/app_pallette.dart';
 import 'package:wails_music_player/features/auth/repos/auth_remote_repo.dart';
 import 'package:wails_music_player/features/auth/view/widgets/auth_gradient_button.dart';
@@ -65,7 +66,13 @@ class _SigninState extends State<Signin> {
                 AuthGradientButton(
                   buttonLabel: 'Sign In',
                   ontap: () async { 
-                    await AuthRemoteRepo().login(email: EmailController.text, password: PasswordController.text);
+                   final res = await AuthRemoteRepo().login(email: EmailController.text, password: PasswordController.text);
+                   final value = switch(res) {
+                    Left(value: final l) => l , 
+                    Right(value: final r)=> r,
+                   };
+                   // ignore: avoid_print
+                   print(value);
                   },
                 ),
                 const SizedBox(

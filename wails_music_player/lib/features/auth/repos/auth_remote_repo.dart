@@ -1,14 +1,17 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-
+import 'package:fpdart/fpdart.dart';
 import 'package:http/http.dart' as http;
+import 'package:wails_music_player/core/theme/constants/server_constant.dart';
+import 'package:wails_music_player/core/theme/failure/failure.dart';
+import 'package:wails_music_player/features/auth/model/user_model.dart';
 
 class AuthRemoteRepo 
 {
-Future<void> signup( {required String name, required String email, required String password}) async{
+Future<Either<Failure, UserModel>> signup( {required String name, required String email, required String password}) async{
   try {
- final response = await http.post(Uri.parse("http://127.0.0.1:8000/auth/signup"),
+ final response = await http.post(Uri.parse("${ServerConstant.serverURL}/auth/signup"),
  headers: {
    'Content-Type': 'application/json',
    'access-control-allow-origin': 'signup',
@@ -19,15 +22,20 @@ Future<void> signup( {required String name, required String email, required Stri
    'password': password,
  },) ,
  );
-  print(response.body);
-  print(response.statusCode);
+ final responseBodyMap = jsonDecode(response.body) as Map<String , dynamic>;
+ if (response.statusCode != 201) {
+ return Left(Failure(responseBodyMap['detail']));
+ } 
+ 
+ return Right(UserModel.fromMap(responseBodyMap));
+
   } catch (e) {
-    print(e);
+    return Left(Failure(e.toString()));
   }
 }
-Future<void> login({required String email , required String password}) async{
+Future<Either<Failure,UserModel>> login({required String email , required String password}) async{
   try {
- final response = await http.post(Uri.parse("http://127.0.0.1:8000/auth/login"),
+ final response = await http.post(Uri.parse("${ServerConstant.serverURL}/auth/login"),
  headers: {
    'Content-Type': 'application/json',
    'access-control-allow-origin': 'login',
@@ -37,9 +45,14 @@ Future<void> login({required String email , required String password}) async{
    'password': password,
  },) ,
  );
-  print(response.body);
-  print(response.statusCode);
+final responseBodyMap = jsonDecode(response.body) as Map<String , dynamic>;
+
+  if (response.statusCode != 200) 
+  {
+    return Left(Failure(responseBodyMap['detail']));
+  }
+  return Right(UserModel.fromMap(responseBodyMap));
   } catch (e) {
-    print(e);
+    return Left(Failure(e.toString()));
   }
 }}

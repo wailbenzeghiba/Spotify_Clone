@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:wails_music_player/core/theme/app_pallette.dart';
+import 'package:fpdart/fpdart.dart' hide State;
 import 'package:wails_music_player/features/auth/repos/auth_remote_repo.dart';
 import 'package:wails_music_player/features/auth/view/pages/signin_page.dart';
 import 'package:wails_music_player/features/auth/view/widgets/auth_gradient_button.dart';
@@ -75,7 +76,13 @@ class _SignUpState extends State<SignUp> {
                 AuthGradientButton(
                   buttonLabel: 'Sign Up',
                   ontap: () async {
-                   await AuthRemoteRepo().signup(name: NameController.text, email: EmailController.text, password: PasswordController.text); 
+                   final res = await AuthRemoteRepo().signup(name: NameController.text, email: EmailController.text, password: PasswordController.text);
+                   final val = switch (res) {
+                   Left(value: final L) => L,
+                   Right(value: final R) => R.toString(),
+                   };
+                   // ignore: avoid_print
+                   print(val);
                   },
                 ),
                 const SizedBox(

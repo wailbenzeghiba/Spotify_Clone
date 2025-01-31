@@ -17,7 +17,9 @@ async def signup_user(user: UserCreate, db: Session = Depends(get_db)):
     user_db = db.query(User).filter(User.email == user.email).first()
 
     if  user_db:
-       raise HTTPException(status_code=400, detail="User already exists")
+       
+       raise HTTPException(status_code=400, detail="User with that Email already exists")
+       
        
     hashed_password = bcrypt.hashpw(user.password.encode('utf-8'), bcrypt.gensalt())
     newUser = User(id = str(uuid.uuid4()) , name=user.name, email=user.email, password=hashed_password)
